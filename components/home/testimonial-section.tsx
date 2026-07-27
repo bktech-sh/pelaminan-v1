@@ -1,6 +1,41 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import { testimonials } from "@/lib/data";
 
+const loopItems = [...testimonials, ...testimonials];
+
 export default function TestimonialSection() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const pausedRef = useRef(false);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReducedMotion) return;
+
+    let frameId: number;
+    const speed = 0.4;
+
+    function step() {
+      if (track && !pausedRef.current) {
+        track.scrollLeft += speed;
+        const halfWidth = track.scrollWidth / 2;
+        if (track.scrollLeft >= halfWidth) {
+          track.scrollLeft -= halfWidth;
+        }
+      }
+      frameId = requestAnimationFrame(step);
+    }
+    frameId = requestAnimationFrame(step);
+
+    return () => cancelAnimationFrame(frameId);
+  }, []);
+
   return (
     <section className="bg-cream">
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-20 lg:px-8">
@@ -13,11 +48,18 @@ export default function TestimonialSection() {
           </h2>
         </div>
 
-        <div className="-mx-4 mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:mt-10 sm:grid sm:grid-cols-3 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0">
-          {testimonials.map((t) => (
+        <div
+          ref={trackRef}
+          onPointerEnter={() => (pausedRef.current = true)}
+          onPointerLeave={() => (pausedRef.current = false)}
+          onTouchStart={() => (pausedRef.current = true)}
+          onTouchEnd={() => (pausedRef.current = false)}
+          className="-mx-4 mt-8 flex scrollbar-none gap-4 overflow-x-auto px-4 pb-2 sm:mt-10 sm:gap-6 sm:pb-4"
+        >
+          {loopItems.map((t, i) => (
             <div
-              key={t.id}
-              className="w-[85%] shrink-0 snap-center rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5 sm:w-auto sm:shrink sm:p-6"
+              key={`${t.id}-${i}`}
+              className="w-[85%] shrink-0 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5 sm:w-90 sm:p-6"
             >
               <svg
                 aria-hidden="true"

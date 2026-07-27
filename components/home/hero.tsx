@@ -16,12 +16,12 @@ export default function Hero() {
       />
       <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/40 to-black/20" />
 
-      <div className="relative mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-32 lg:px-8">
+      <div className="relative mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-40 lg:px-8">
         <div className="max-w-2xl">
           <p className="text-[11px] font-medium tracking-[0.15em] text-gold-light uppercase sm:text-sm sm:tracking-[0.2em]">
             Melayani {site.serviceArea}
           </p>
-          <h1 className="mt-2 font-display text-2xl font-semibold leading-tight text-white sm:mt-4 sm:text-5xl lg:text-6xl">
+          <h1 className="mt-2 font-display text-2xl font-semibold leading-tight text-white sm:mt-4 sm:text-4xl lg:text-5xl">
             Mewujudkan Pelaminan Impian di Hari Bahagia Anda
           </h1>
           <p className="mt-2.5 max-w-md text-sm leading-snug text-white/80 sm:mt-6 sm:text-lg sm:leading-relaxed">
