@@ -15,9 +15,44 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+const description = `Jasa dekorasi tenda pelaminan dan sewa busana pernikahan di ${site.serviceArea}.`;
+
 export const metadata: Metadata = {
-  title: `${site.name} — ${site.tagline}`,
-  description: `Jasa dekorasi tenda pelaminan dan sewa busana pernikahan di ${site.serviceArea}.`,
+  title: {
+    default: `${site.name} | ${site.tagline}`,
+    template: `%s | ${site.name}`,
+  },
+  description,
+  authors: [{ name: `${site.name} Team` }],
+  creator: site.name,
+  publisher: site.name,
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    type: "website",
+    locale: "id_ID",
+    url: site.url,
+    title: `${site.name} | ${site.tagline}`,
+    description,
+    siteName: site.name,
+    images: [
+      {
+        url: "/og-elok-pelaminan.png",
+        width: 1200,
+        height: 630,
+        alt: `${site.name} - ${site.tagline}`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} | ${site.tagline}`,
+    description,
+    images: ["/og-elok-pelaminan.png"],
+  },
+  metadataBase: new URL(site.url),
 };
 
 export default function RootLayout({

@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
         // NOTE: no `search` constraint — Unsplash URLs carry query params
         // (?auto=format&w=…&q=…); setting search:"" would reject them.
       },
+      {
+        protocol: "https",
+        hostname: "ik.imagekit.io",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };
